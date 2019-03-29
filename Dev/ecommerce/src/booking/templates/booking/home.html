@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Book</h1>
+
+{% if book.products.exists %}
+<table class="table"
+>
+ <thead>
+ 	<tr>
+ 	 <th>#</th>
+ 	 <th>Hotel Name</th>
+ 	 <th>Room Price</th>
+ 	</tr>
+</thead>
+<tbody>
+	{% for product in book.products.all %}
+  <tr>
+    <th scope="row">{{forloop.counter }}</th>
+    <td><a href='{{ product.get_absolute_url }}'>{{ product.tittle }}</a>
+    
+       {% include 'products/snippets/update-book.html' with product=product book=book   %}
+     </td>
+    <td>{{ product.price }}</td> 
+   
+  </tr>
+  {% endfor %}
+
+   <tr>
+    <td colspan="2"></td>
+    <td><b>Subtotal</b>{{ book.subtotal }}</td>
+    
+  </tr>
+   <tr>
+    <td colspan="2"></td>
+    <td><b>Total</b> {{ book.total }}</td>
+  
+  </tr>
+  <tr>
+    <td colspan="2"></td>
+    <td><a class='btn btn-lg btn-success' href='{% url "book:checkout" %}'>Checkout</a></td> 
+  
+  </tr>
+ </tbody>
+
+     	
+</table>
+{% else %}
+<p class='lead'>Book is empty</p>
+{% endif %}
+
+{% endblock %}

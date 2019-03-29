@@ -1,0 +1,10 @@
+<form method='POST' action='{% url "book:update" %}' class="form"> {% csrf_token %}
+	<input type='hidden' name='product_id' value='{{ product.id}}'/>
+             {% if product in book.products.all %}
+        	 Reserved<button type='submit' class='btn btn-link'>Remove?</button>
+        	 {% else %}
+        	 <button type='submit' class='btn btn-success'>Add to booking</button>
+        	 {% endif %}   	
+
+    
+</form> 
